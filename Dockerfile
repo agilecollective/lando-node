@@ -23,4 +23,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "unlink('composer-setup.php');" \
   && mv composer.phar /usr/local/bin/composer
 
+RUN groupmod -g 999 node && usermod -u 999 -g 999 node
+
 CMD [ "node" ]
