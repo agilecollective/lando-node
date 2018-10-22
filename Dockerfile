@@ -10,7 +10,7 @@ RUN wget https://dl-ssl.google.com/linux/linux_signing_key.pub \
   && echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list \
   && echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list \
   && echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list \
-  && apt-get -y update && apt-get -y install google-chrome-stable php-cli php-mysql php-xml mysql-client apt-transport-https \
+  && apt-get -y update && apt-get -y install google-chrome-stable php-cli php-mysql php-mbstring php-xml mysql-client apt-transport-https \
   && apt-get clean
   
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
