@@ -2,6 +2,8 @@ FROM bitnami/node:10
 
 RUN npm install -g --unsafe-perm=true --allow-root backstopjs gulp-cli
 
+RUN apt-get update && apt-get install -y gnupg2
+
 RUN wget https://dl-ssl.google.com/linux/linux_signing_key.pub \
   && apt-key add linux_signing_key.pub \
   && wget https://www.dotdeb.org/dotdeb.gpg \
