@@ -1,4 +1,4 @@
-FROM node:carbon
+FROM bitnami/node:10
 
 RUN npm install -g --unsafe-perm=true --allow-root backstopjs gulp-cli
 
