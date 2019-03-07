@@ -4,13 +4,16 @@ ENV \
       APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true \
       NPM_CONFIG_UNSAFE_PERM=true
 
-RUN apt-get update && apt-get install -y gnupg2 bzip2 curl && apt-get clean
+RUN apt-get update && apt-get install -y gnupg2 bzip2 curl \
+  && rm -rf /etc/apt/sources.list.d/* \
+  && apt-get clean
 
 RUN npm install -g --unsafe-perm=true --allow-root backstopjs gulp-cli
 
 RUN curl -sS https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list \
   && apt-get -y update && apt-get -y install google-chrome-stable php-cli php-mysql php-mbstring php-xml mysql-client apt-transport-https \
+  && rm -rf /etc/apt/sources.list.d/* \
   && apt-get clean
 
 RUN apt-get -qqy update \
