@@ -1,10 +1,11 @@
-FROM bitnami/node:10-debian-9-prod
+FROM bitnami/node:10-debian-9
 
 ENV \
       APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true \
-      NPM_CONFIG_UNSAFE_PERM=true
+      NPM_CONFIG_UNSAFE_PERM=true \
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-RUN apt-get update && apt-get install -y gnupg2 bzip2 curl \
+RUN apt-get update && apt-get install -y gnupg2 \
   && rm -rf /etc/apt/sources.list.d/* \
   && apt-get clean
 
