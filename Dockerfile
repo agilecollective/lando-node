@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y gnupg2 \
   && rm -rf /etc/apt/sources.list.d/* \
   && apt-get clean
 
-RUN npm install -g --unsafe-perm=true --allow-root backstopjs gulp-cli
 
 RUN curl -sS https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list \
@@ -41,6 +40,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
   && apt-get install -y nodejs
+
+ENV PATH="/app/node_modules/.bin:/var/www/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+RUN mkdir /home/node; npm install -g --unsafe-perm=true --allow-root backstopjs gulp-cli
 
 EXPOSE 3000
 
