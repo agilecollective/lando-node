@@ -1,4 +1,4 @@
-FROM bitnami/node:8-debian-9
+FROM bitnami/node:10-debian-9
 
 ENV \
       APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true \
@@ -38,7 +38,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "unlink('composer-setup.php');" \
   && mv composer.phar /usr/local/bin/composer
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && apt-get install -y nodejs
 
 ENV PATH="/app/node_modules/.bin:/var/www/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
