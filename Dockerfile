@@ -2,16 +2,21 @@ FROM node:carbon-jessie
 
 RUN npm install -g --unsafe-perm=true --allow-root backstopjs gulp-cli
 
-RUN wget https://dl-ssl.google.com/linux/linux_signing_key.pub \
-  && apt-key add linux_signing_key.pub \
-  && wget https://www.dotdeb.org/dotdeb.gpg \
-  && apt-key add dotdeb.gpg \
-  && rm dotdeb.gpg linux_signing_key.pub \
-  && echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list \
-  && echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list \
-  && echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list \
-  && apt-get -y update && apt-get -y install google-chrome-stable php-cli php-mysql php-mbstring php-xml mysql-client apt-transport-https \
-  && apt-get clean
+RUN sed -i '/jessie-updates/d' /etc/apt/sources.list  # Now archived
+
+RUN apt-get update -qqy \
+  && apt-get -qqy install ca-certificates apt-transport-https \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+RUN curl -L https://packages.sury.org/php/apt.gpg | apt-key add - \
+  && echo "deb https://packages.sury.org/php/ jessie main" >> /etc/apt/sources.list.d/php.list \
+  && curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+  && apt-get update -qqy \
+  && apt-get -qqy install google-chrome-stable php7.2-cli php7.2-mysql php7.2-mbstring php7.2-xml mysql-client \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
