@@ -1,4 +1,4 @@
-FROM bitnami/node:8-debian-9
+FROM bitnami/node:12-debian-10
 
 ENV \
       APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true \
