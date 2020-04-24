@@ -1,5 +1,5 @@
 # lando-node
-A NodeJS container for use with Lando. Based on the bitnami node:10-debian-9 image.
+A NodeJS container for use with Lando. Based on the bitnami node:12-debian-10 image.
 
 ## Extras
 

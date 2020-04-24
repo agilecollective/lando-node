@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y gnupg2 \
 
 RUN curl -sS https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list \
-  && apt-get -y update && apt-get -y install google-chrome-stable php-cli php-mysql php-mbstring php-xml mysql-client apt-transport-https \
+  && apt-get -y update && apt-get -y install google-chrome-stable php-cli php-mysql php-mbstring php-xml default-mysql-client apt-transport-https \
   && rm -rf /etc/apt/sources.list.d/* \
   && apt-get clean
 
@@ -38,7 +38,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "unlink('composer-setup.php');" \
   && mv composer.phar /usr/local/bin/composer
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && apt-get install -y nodejs
 
 ENV PATH="/app/node_modules/.bin:/var/www/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
